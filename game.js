@@ -10,7 +10,7 @@ var config = {
       },
     },
   },
-  scene: [Scene1],
+  scene: [Scene1, Scene2, Scene3],
 };
 
 var game = new Phaser.Game(config);
