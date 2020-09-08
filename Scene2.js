@@ -1,20 +1,28 @@
 class Scene2 extends Phaser.Scene {
   constructor() {
     super({ key: "playGame" });
-
-    this.maze = new Maze(2,2)
-    console.log(this.maze)
+    this.width = 10;
+    this.height = 10;
+    this.maze = new Maze(10, 10);
   }
 
+  constructor(width, height) {
+    super({ key: "playGame" });
+    this.width = width;
+    this.height = height;
+    this.maze = new Maze(width, height);
+  }
 
   preload() {
-    this.load.image("square", "assets/pinkSquare.jpg");
+    this.load.image("player", "assets/pinkSquare.jpg");
+    this.load.image("wall", "assets/brownsquare.jpg");
+    this.load.image("enemy", "assets/bluesquare.jpg");
     this.load.audio("shoot", ["assets/gunNoise.mp3"]);
   }
 
   create() {
     this.soundShoot = this.sound.add("shoot");
-    this.image = this.add.image(400, 300, "square");
+    this.image = this.add.image(400, 300, "player");
 
     // this approach fires everytime the key is down, so gradual
     this.key_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -66,7 +74,7 @@ class Maze {
     var j;
 
     for (i = 0; i < width; i++) {
-      this.maze.push([])
+      this.maze.push([]);
       for (j = 0; j < height; j++) {
         this.maze[i].push(new Cell());
       }
@@ -75,7 +83,6 @@ class Maze {
 }
 
 class Cell {
-  
   constructor() {
     this.top = Math.random() >= 0.3;
     this.bottom = Math.random() >= 0.3;
@@ -98,6 +105,4 @@ class Cell {
     this.bottom = this.left;
     this.left = temp;
   }
-
-  
 }
