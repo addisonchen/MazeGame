@@ -1,7 +1,11 @@
 class Scene2 extends Phaser.Scene {
   constructor() {
     super({ key: "playGame" });
+
+    this.maze = new Maze(2,2)
+    console.log(this.maze)
   }
+
 
   preload() {
     this.load.image("square", "assets/pinkSquare.jpg");
@@ -53,4 +57,47 @@ class Scene2 extends Phaser.Scene {
       this.image.x += 3;
     }
   }
+}
+
+class Maze {
+  constructor(width, height) {
+    this.maze = [];
+    var i;
+    var j;
+
+    for (i = 0; i < width; i++) {
+      this.maze.push([])
+      for (j = 0; j < height; j++) {
+        this.maze[i].push(new Cell());
+      }
+    }
+  }
+}
+
+class Cell {
+  
+  constructor() {
+    this.top = Math.random() >= 0.3;
+    this.bottom = Math.random() >= 0.3;
+    this.left = Math.random() >= 0.3;
+    this.right = Math.random() >= 0.3;
+  }
+
+  rotateRight() {
+    const temp = this.top;
+    this.top = this.left;
+    this.left = this.bottom;
+    this.bottom = this.right;
+    this.right = temp;
+  }
+
+  rotateLeft() {
+    const temp = this.top;
+    this.top = this.right;
+    this.right = this.bottom;
+    this.bottom = this.left;
+    this.left = temp;
+  }
+
+  
 }
